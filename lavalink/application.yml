@@ -1,0 +1,15 @@
+server:
+  port: 1337
+  address: 127.0.0.1
+lavalink:
+  server:
+    password: 'sekrekt'
+    sources:
+      youtube: true
+      bandcamp: true
+      soundcloud: true
+      twitch: true
+      vimeo: true
+      mixer: true
+      http: true
+      local: false
