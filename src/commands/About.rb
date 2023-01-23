@@ -23,11 +23,11 @@ module About
 
       if lang == "ru"
         embed.add_field(name: "Статистика", value: "**Серверов:** #{bot.servers.size}\n**Пользователей:** #{$users}\n**Время работы:** #{(Time.now - START_TIME).to_i / 3600} часов", inline: true)
-        embed.add_field(name: "Полезные ссылки", value: "[Пригласить](https://discord.com/api/oauth2/authorize?client_id=840665896556560435&permissions=0&scope=bot)", inline: true)
+        embed.add_field(name: "Полезные ссылки", value: "[Пригласить](https://discord.com/api/oauth2/authorize?client_id=840665896556560435&permissions=0&scope=bot)\n[Страница на GitHub](https://github.com/Schedarian/Rubedo)", inline: true)
         embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "Написан с помощью библиотеки Discordrb")
       else
         embed.add_field(name: "Stats", value: "**Servers:** #{bot.servers.size}\n**Users:** #{$users}\n**Uptime:** #{(Time.now - START_TIME).to_i / 3600} hours", inline: true)
-        embed.add_field(name: "Useful links", value: "[Invite link](https://discord.com/api/oauth2/authorize?client_id=840665896556560435&permissions=0&scope=bot)", inline: true)
+        embed.add_field(name: "Useful links", value: "[Invite link](https://discord.com/api/oauth2/authorize?client_id=840665896556560435&permissions=0&scope=bot)\n[GitHub page](https://github.com/Schedarian/Rubedo)", inline: true)
         embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "Written using Discordrb library")
       end
 
