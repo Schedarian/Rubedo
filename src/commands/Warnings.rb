@@ -21,6 +21,7 @@ module Warnings
       cmd.subcommand(:clear, "Clear all warnings for a user") do |subcmd|
         subcmd.user(:user, "Choose a user", required: true)
       end
+      cmd.subcommand(:me, "Check your warnings")
       cmd.subcommand(:drop, "Drop warnings database for this server")
     end
   end
@@ -41,6 +42,7 @@ module Warnings
       cmd.subcommand(:clear, "Убрать все предупреждения пользователя") do |subcmd|
         subcmd.user(:user, "Выберите пользователя", required: true)
       end
+      cmd.subcommand(:me, "Показать свои предупреждения")
       cmd.subcommand(:drop, "Сбросить базу данных предупреждений для этого сервера")
     end
   end
@@ -125,7 +127,37 @@ module Warnings
         end
       end
     end
-    #handle 0
+
+    bot.application_command(:warnings).subcommand(:me) do |handler|
+      lang = Utils.get_language(handler.server_id.to_s)
+      embed = Discordrb::Webhooks::Embed.new
+      embed.color = 13775422
+      data = Database.get_warnings(handler.server_id.to_s, handler.user.id.to_s)
+      i = 1
+      if data[0] > 0
+        if lang == "ru"
+          embed.description = "**Предупреждения пользователя** <@#{handler.user.id.to_s}>"
+          data[1].each do |warn|
+            embed.add_field(name: "Случай №#{i}", value: "Причина: #{warn[0]}\nВыдан: <@#{warn[1]}>\nДата: <t:#{warn[2]}>\n[Истекает через #{((Time.at(warn[2].to_i + 2592000) - Time.now) / 86400).ceil} дней]", inline: true)
+            i += 1
+          end
+        else
+          embed.description = "**Warnings for user** <@#{handler.user.id.to_s}>"
+          data[1].each do |warn|
+            embed.add_field(name: "Case №#{i}", value: "Reason: #{warn[0]}\nBy: <@#{warn[1]}>\nTimestamp: <t:#{warn[2]}>\n[Expires in #{((Time.at(warn[2].to_i + 2592000) - Time.now) / 86400).ceil} days]", inline: true)
+            i += 1
+          end
+        end
+      else
+        if lang == "ru"
+          embed.description = "**У пользователя <@#{handler.user.id.to_s}> нет предупреждений**"
+        else
+          embed.description = "**User <@#{handler.user.id.to_s}> has no warnings**"
+        end
+      end
+      handler.respond(embeds: [] << embed)
+    end
+
     bot.application_command(:warnings).subcommand(:remove) do |handler|
       lang = Utils.get_language(handler.server_id.to_s)
       number = handler.options["number"].nil? ? nil : handler.options["number"]
