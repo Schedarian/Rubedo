@@ -7,10 +7,8 @@ Yet another uesless discord bot
 Please do not read the source code - it is horribly and hastily written mess 
 
 # Installation
-Download lavalink and put .jar file into lavalink folder
+Download source code, run bundler to get all dependencies
 
-Add discord token and OpenWeather api token into config.yaml
+Provide all data to config.yaml
 
-run `java -jar Lavalink.jar`
-
-run `bundle exec ruby Main.rb`
+run `bundle exec ruby Main.rb` or `./run.sh`
