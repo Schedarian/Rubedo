@@ -1,2 +1,6 @@
-token: ''
-weathertoken: ''
+developer_id: # Your discord id so you can use eval command
+bot_token: ''
+bot_id: # Integer
+weather_token: ''
+default_embed_color: # The default embed color (decimal), unless it is changed
+register_global: true # Set to false when globals are registered
